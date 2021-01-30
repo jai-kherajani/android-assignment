@@ -1,11 +1,7 @@
 package com.example.assignment.service;
 
-import android.app.job.JobParameters;
-import android.app.job.JobService;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.work.Data;
@@ -13,7 +9,6 @@ import androidx.work.ListenableWorker;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.example.assignment.model.Attribute;
 import com.example.assignment.network.APIClient;
 import com.example.assignment.network.ResponseApi;
 
@@ -67,7 +62,7 @@ public class MyWorker extends Worker {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 int statusCode = response.code();
-                Log.d(TAG, "response code from api is "+statusCode);
+                Log.d(TAG, "response code from api is " + statusCode);
                 try {
                     String responseInString = response.body().string();
                     Log.d(TAG, "response - " + responseInString);
@@ -75,7 +70,7 @@ public class MyWorker extends Worker {
                     JSONObject platforms = (JSONObject) jsonObject.getJSONArray("platforms").get(0);
                     JSONObject platformDefinition = platforms.getJSONObject("platformDefinition");
                     JSONObject attributeDefinitions = (JSONObject) platformDefinition.getJSONArray("attributeDefinitions").get(2);
-                    Log.d(TAG, "version - "+attributeDefinitions.getString("order"));
+                    Log.d(TAG, "version - " + attributeDefinitions.getString("order"));
                     isSuccess = true;
                     finished = true;
                 } catch (IOException | JSONException e) {
@@ -87,14 +82,13 @@ public class MyWorker extends Worker {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG,"Failed to retrieve data");
+                Log.d(TAG, "Failed to retrieve data");
                 Log.d(TAG, t.toString());
                 isSuccess = false;
                 finished = true;
             }
         });
-        while(!finished && timeElapsed <= 500)
-        {
+        while (!finished && timeElapsed <= 500) {
             try {
                 timeElapsed += 100;
                 Thread.sleep(timeElapsed);

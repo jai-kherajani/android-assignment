@@ -1,14 +1,12 @@
 package com.example.assignment.network;
 
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient {
     public static final String BASE_URL = "https://daf.eu.byappdirect.com/";
     private static Retrofit retrofit = null;
 
-    public static Retrofit getRetrofitClient()
-    {
+    public static Retrofit getRetrofitClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
