@@ -32,6 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         WorkManager workManager = WorkManager.getInstance(this);
         workManager.enqueueUniquePeriodicWork("Assignment Worker", ExistingPeriodicWorkPolicy.REPLACE, periodicWorkRequest);
-        finish();
+        finishAndRemoveTask();
     }
 }
